@@ -5,13 +5,28 @@ from models import Human,World
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 
+class ModelSprite(arcade.Sprite):
+	def __init__(self, *args, **kwargs):
+		self.model = kwargs.pop('model', None)
+ 
+		super().__init__(*args, **kwargs)
+ 
+	def sync_with_model(self):
+		if self.model:
+			self.set_position(self.model.x, self.model.y)
+ 
+	def draw(self):
+		self.sync_with_model()
+		super().draw()
+
 
 class SilverBulletGameWindow(arcade.Window):
 	def __init__(self, width, height):
 		super().__init__(width, height)
 		arcade.set_background_color(arcade.color.WHITE)
-		self.human_sprite = arcade.Sprite('images/human.png')
 		self.world = World(width, height)
+		self.human_sprite = ModelSprite('images/human.png',model=self.world.human)
+		
  
  
 	def on_draw(self):
@@ -20,7 +35,7 @@ class SilverBulletGameWindow(arcade.Window):
 		
 	def update(self, delta):
 		self.world.update(delta)
-		self.human_sprite.set_position(self.world.human.x, self.world.human.y)
+		
 		
 	def on_key_press(self, key, key_modifiers):
 		self.world.on_key_press(key, key_modifiers)
