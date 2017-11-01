@@ -66,7 +66,7 @@ class World:
 	def __init__(self, width, height):
 		self.width = width
 		self.height = height
-		self.score = 0
+		self.score = 5
  
 		self.human = Human(self, 100, 100)
 		self.bullet = Bullet(self,self,100, 100)
