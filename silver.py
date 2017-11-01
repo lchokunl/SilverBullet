@@ -25,7 +25,7 @@ class SilverBulletGameWindow(arcade.Window):
 		super().__init__(width, height)
 		arcade.set_background_color(arcade.color.WHITE)
 		self.world = World(width, height)
-		self.human_sprite = ModelSprite('images/human.png',model=self.world.human)
+		self.human_sprite = ModelSprite('images/human1.png',model=self.world.human)
 		
  
  
