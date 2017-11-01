@@ -16,16 +16,16 @@ class Human:
  
 	def update(self, delta):
 		
-		if self.direction == DIR_UP and self.y < self.world.height:
+		if self.direction == DIR_UP and self.y < self.world.height-50:
 			self.y += 5
 		
-		if self.direction == DIR_RIGHT and self.x < self.world.width/2:
+		if self.direction == DIR_RIGHT and self.x < self.world.width/2-50:
 			self.x += 5
 			
-		if self.direction == DIR_LEFT and self.x > 0:
+		if self.direction == DIR_LEFT and self.x > 50:
 			self.x -= 5
 		
-		if self.direction == DIR_DOWN and self.y > 0:
+		if self.direction == DIR_DOWN and self.y > 50:
 			self.y -= 5
 		
 class World:
