@@ -26,12 +26,15 @@ class SilverBulletGameWindow(arcade.Window):
 		arcade.set_background_color(arcade.color.WHITE)
 		self.world = World(width, height)
 		self.human_sprite = ModelSprite('images/human1.png',model=self.world.human)
-		
  
  
 	def on_draw(self):
 		arcade.start_render()
 		self.human_sprite.draw()
+		self.bullet_list.draw()
+		
+		arcade.draw_text(str(self.world.score),self.width - 30, self.height - 30,arcade.color.BLACK, 20)
+		
 		
 	def update(self, delta):
 		self.world.update(delta)
