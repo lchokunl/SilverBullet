@@ -1,5 +1,9 @@
 import arcade.key
 
+DIR_UP = 1
+DIR_RIGHT = 2
+DIR_LEFT = 3
+
 class Human:
 	
 	def __init__(self, world, x, y):
@@ -9,17 +13,14 @@ class Human:
 		self.direction = 0
  
  
-	def switch_direction(self):
-		if self.direction == Ship.DIR_HORIZONTAL:
-			self.direction = Ship.DIR_VERTICAL
-		else:
-			self.direction = Ship.DIR_HORIZONTAL
- 
- 
 	def update(self, delta):
-		if key == arcade.key.SPACE:
+		
+		if self.direction == DIR_UP:
 			self.y += 5
 		
+		if self.y > 130 :
+			self.direction = 0
+			self.y -= 5
 		
 class World:
 	def __init__(self, width, height):
@@ -34,4 +35,4 @@ class World:
 		
 	def on_key_press(self, key, key_modifiers):
 		if key == arcade.key.SPACE:
-			self.human.switch_direction()
+			self.human.direction = DIR_UP
