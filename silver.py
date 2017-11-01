@@ -33,7 +33,7 @@ class SilverBulletGameWindow(arcade.Window):
 		self.human_sprite.draw()
 		self.bullet_list.draw()
 		
-		arcade.draw_text(str(self.world.score),self.width - 30, self.height - 30,arcade.color.BLACK, 20)
+		arcade.draw_text(str(self.world.score),50, self.height - 30,arcade.color.BLACK, 20)
 		
 		
 	def update(self, delta):
