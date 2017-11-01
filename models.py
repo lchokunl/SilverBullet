@@ -3,6 +3,7 @@ import arcade.key
 DIR_UP = 1
 DIR_RIGHT = 2
 DIR_LEFT = 3
+DIR_DOWN = 4
 
 class Human:
 	
@@ -18,8 +19,13 @@ class Human:
 		if self.direction == DIR_UP:
 			self.y += 5
 		
-		if self.y > 130 :
-			self.direction = 0
+		if self.direction == DIR_RIGHT:
+			self.x += 5
+			
+		if self.direction == DIR_LEFT:
+			self.x -= 5
+		
+		if self.direction == DIR_DOWN:
 			self.y -= 5
 		
 class World:
@@ -34,5 +40,14 @@ class World:
 		self.human.update(delta)
 		
 	def on_key_press(self, key, key_modifiers):
-		if key == arcade.key.SPACE:
+		if key == arcade.key.W:
 			self.human.direction = DIR_UP
+		
+		if key == arcade.key.D:
+			self.human.direction = DIR_RIGHT
+		
+		if key == arcade.key.A:
+			self.human.direction = DIR_LEFT
+			
+		if key == arcade.key.S:
+			self.human.direction = DIR_DOWN
