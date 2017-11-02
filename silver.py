@@ -42,6 +42,11 @@ class SilverBulletGameWindow(arcade.Window):
 		arcade.draw_text("Player2' Health " ,1000, self.height - 30,arcade.color.BLACK, 20)
 		arcade.draw_text(str(self.world.health2),1070, self.height - 100,arcade.color.BLACK, 50)
 		
+		if self.world.health1 == 0:
+			arcade.draw_text("Player2 Win !" ,450, self.height - 200,arcade.color.BLACK, 40)
+		
+		if self.world.health2 == 0:
+			arcade.draw_text("Player1 Win !" ,450, self.height - 200,arcade.color.BLACK, 40)
 		
 		
 		
