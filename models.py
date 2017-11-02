@@ -5,6 +5,7 @@ DIR_RIGHT = 2
 DIR_LEFT = 3
 DIR_DOWN = 4
 
+DELAY_TIME = 1
 
 class Human1:
 	
@@ -57,6 +58,11 @@ class World:
 		
 		self.bullet1_list = arcade.SpriteList()
 		
+		self.shoot1_delay = True
+		self.shoot2_delay = True
+		
+		self.count_time = 0
+		
 	def draw(self):
 		self.bullet1_list.draw()
 		
@@ -69,7 +75,10 @@ class World:
 		self.human1.update(delta)
 		self.bullet1_list.update()
 		
-		
+		self.count_time += delta
+		if self.count_time >= DELAY_TIME:
+			self.shoot1_delay = True
+			self.count_time = 0
 		
 	def on_key_press(self, key, key_modifiers):
 		if key == arcade.key.W:
@@ -84,7 +93,8 @@ class World:
 		if key == arcade.key.S:
 			self.human1.direction = DIR_DOWN
 			
-		if key == arcade.key.SPACE:
+		if key == arcade.key.SPACE and self.shoot1_delay:
 			self.shoot1()
+			self.shoot1_delay = False
 			
 			
