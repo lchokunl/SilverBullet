@@ -7,6 +7,8 @@ DIR_DOWN = 4
 
 DELAY_TIME = 1
 
+HEALTH = 5
+
 class Human1:
 	
 	def __init__(self, world, x, y):
@@ -31,7 +33,7 @@ class Human1:
 			self.y -= 5
 			
 	def hit(self, other, hit_size):
-		return (abs(self.x - other.x) <= hit_size) and (abs(self.y - other.y) <= hit_size)
+		return (abs(self.x - other.center_x) <= hit_size) and (abs(self.y - other.center_y) <= hit_size)
 		
 class Human2:
 	
@@ -57,7 +59,7 @@ class Human2:
 			self.y -= 5
 			
 	def hit(self, other, hit_size):
-		return (abs(self.x - other.x) <= hit_size) and (abs(self.y - other.y) <= hit_size)
+		return (abs(self.x - other.center_x) <= hit_size) and (abs(self.y - other.center_y) <= hit_size)
 			
 class Bullet1(arcade.Sprite):
 	
@@ -93,12 +95,16 @@ class World:
 	def __init__(self, width, height):
 		self.width = width
 		self.height = height
-		self.health = 5
+		self.health1 = HEALTH
+		self.health2 = HEALTH
 		self.human1 = Human1(self, 100, 100)
 		self.human2 = Human2(self, 800, 100)
 		
 		self.bullet1_list = arcade.SpriteList()
 		self.bullet2_list = arcade.SpriteList()
+		
+		self.bullet1 = Bullet1("images/bullet2.png",1,self.human1)
+		self.bullet2 = Bullet2("images/bullet2.png",1,self.human2)
 		
 		self.shoot1_delay = True
 		self.shoot2_delay = True
@@ -133,6 +139,12 @@ class World:
 		if self.count_time2 >= DELAY_TIME:
 			self.shoot2_delay = True
 			self.count_time2 = 0
+			
+		if self.human1.hit(self.bullet2, 30) and health1 > 0:
+			self.health1 -= 1
+			
+		if self.human2.hit(self.bullet1, 30) and health2 > 0:
+			self.health2 -= 1
 		
 	def on_key_press(self, key, key_modifiers):
 		if key == arcade.key.W:
