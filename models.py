@@ -141,11 +141,11 @@ class World:
 			self.count_time2 = 0
 			
 		for bullet in self.bullet2_list:
-			if self.human1.hit(bullet, 30) and self.health1 > 0:
+			if self.human1.hit(bullet, 30) and self.health1 > 0 and self.health2 > 0:
 				self.health1 -= 1
 				bullet.kill()
 		for bullet in self.bullet1_list:
-			if self.human2.hit(bullet, 30) and self.health2 > 0:
+			if self.human2.hit(bullet, 30) and self.health2 > 0 and self.health1 > 0:
 				self.health2 -= 1
 				bullet.kill()
 		
