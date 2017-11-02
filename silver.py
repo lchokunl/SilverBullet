@@ -26,6 +26,7 @@ class SilverBulletGameWindow(arcade.Window):
 		arcade.set_background_color(arcade.color.WHITE)
 		self.world = World(width, height)
 		self.human1_sprite = ModelSprite('images/human1.png',model=self.world.human1)
+		self.human2_sprite = ModelSprite('images/human2.png',model=self.world.human2)
 		
 
  
@@ -33,6 +34,7 @@ class SilverBulletGameWindow(arcade.Window):
 	def on_draw(self):
 		arcade.start_render()
 		self.human1_sprite.draw()
+		self.human2_sprite.draw()
 		self.world.draw()
 
 		
