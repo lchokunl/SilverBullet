@@ -37,8 +37,8 @@ class SilverBulletGameWindow(arcade.Window):
 		self.human2_sprite.draw()
 		self.world.draw()
 		
-		arcade.draw_text(str(self.world.health1),10, self.height - 30,arcade.color.BLACK, 20)
-		arcade.draw_text(str(self.world.health2),1100, self.height - 30,arcade.color.BLACK, 20)
+		arcade.draw_text("Player1' Health : " + str(self.world.health1),10, self.height - 30,arcade.color.BLACK, 20)
+		arcade.draw_text(str(self.world.health2) + " : Player2' Health " ,1000, self.height - 30,arcade.color.BLACK, 20)
 
 		
 		
