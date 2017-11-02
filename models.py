@@ -5,19 +5,6 @@ DIR_RIGHT = 2
 DIR_LEFT = 3
 DIR_DOWN = 4
 
-class ModelSprite(arcade.Sprite):
-	def __init__(self, *args, **kwargs):
-		self.model = kwargs.pop('model', None)
- 
-		super().__init__(*args, **kwargs)
- 
-	def sync_with_model(self):
-		if self.model:
-			self.set_position(self.model.x, self.model.y)
- 
-	def draw(self):
-		self.sync_with_model()
-		super().draw()
 
 class Human1:
 	
@@ -45,20 +32,19 @@ class Human1:
 	def hit(self, other, hit_size):
 		return (abs(self.x - other.x) <= hit_size) and (abs(self.y - other.y) <= hit_size)
 			
-class Bullet():
+class Bullet1(arcade.Sprite):
 	
-	def __init__(self, world, human1, x, y):
-		self.world = world
-		self.human1 = human1
-		self.x = x
-		self.y = y
-		self.bullet_list = None
-		self.bullet_list = arcade.SpriteList()
+	def __init__(self, file,scale, human1):
+		super().__init__(file,scale)
+		self.center_x = human1.x
+		self.center_y = human1.y
 	
  
  
-	def update(self, delta):
-		self.x += 5
+	def update(self):
+		self.center_x += 5
+		if self.center_x > 1200:
+			self.kill()
 		
 		
 class World:
@@ -67,17 +53,23 @@ class World:
 		self.width = width
 		self.height = height
 		self.health = 5
- 
 		self.human1 = Human1(self, 100, 100)
-		self.bullet = Bullet(self,self,100, 100)
-		self.bullet_list = self.bullet.bullet_list
+		
+		self.bullet1_list = arcade.SpriteList()
+		
+	def draw(self):
+		self.bullet1_list.draw()
+		
+	def shoot1(self):
+		bullet1 = Bullet1("images/bullet.png",1,self.human1)
+		self.bullet1_list.append(bullet1)
+
  
 	def update(self, delta):
 		self.human1.update(delta)
-		self.bullet_list.update()
+		self.bullet1_list.update()
 		
-		if self.human1.hit(self.bullet, 30):
-            self.health -= 1
+		
 		
 	def on_key_press(self, key, key_modifiers):
 		if key == arcade.key.W:
@@ -93,5 +85,6 @@ class World:
 			self.human1.direction = DIR_DOWN
 			
 		if key == arcade.key.SPACE:
-			self.bullet_list = ModelSprite('images/bullet.png',model=self.world.bullet)
-			self.bullet_list.append(self,bullet)
+			self.shoot1()
+			
+			
