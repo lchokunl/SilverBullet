@@ -72,6 +72,20 @@ class Bullet1(arcade.Sprite):
 		self.center_x += 5
 		if self.center_x > 1200:
 			self.kill()
+			
+class Bullet2(arcade.Sprite):
+	
+	def __init__(self, file,scale, human2):
+		super().__init__(file,scale)
+		self.center_x = human2.x
+		self.center_y = human2.y
+	
+ 
+ 
+	def update(self):
+		self.center_x -= 5
+		if self.center_x < 0:
+			self.kill()
 		
 		
 class World:
@@ -84,29 +98,41 @@ class World:
 		self.human2 = Human2(self, 800, 100)
 		
 		self.bullet1_list = arcade.SpriteList()
+		self.bullet2_list = arcade.SpriteList()
 		
 		self.shoot1_delay = True
 		self.shoot2_delay = True
 		
-		self.count_time = 0
+		self.count_time1 = 0
+		self.count_time2 = 0
 		
 	def draw(self):
 		self.bullet1_list.draw()
+		self.bullet2_list.draw()
 		
 	def shoot1(self):
-		bullet1 = Bullet1("images/bullet.png",1,self.human1)
+		bullet1 = Bullet1("images/bullet1.png",1,self.human1)
 		self.bullet1_list.append(bullet1)
 
+	def shoot2(self):
+		bullet2 = Bullet2("images/bullet2.png",1,self.human2)
+		self.bullet2_list.append(bullet2)
  
 	def update(self, delta):
 		self.human1.update(delta)
 		self.human2.update(delta)
 		self.bullet1_list.update()
+		self.bullet2_list.update()
 		
-		self.count_time += delta
-		if self.count_time >= DELAY_TIME:
+		self.count_time1 += delta
+		if self.count_time1 >= DELAY_TIME:
 			self.shoot1_delay = True
-			self.count_time = 0
+			self.count_time1 = 0
+		
+		self.count_time2 += delta
+		if self.count_time2 >= DELAY_TIME:
+			self.shoot2_delay = True
+			self.count_time2 = 0
 		
 	def on_key_press(self, key, key_modifiers):
 		if key == arcade.key.W:
@@ -136,5 +162,9 @@ class World:
 			
 		if key == arcade.key.DOWN:
 			self.human2.direction = DIR_DOWN
+			
+		if key == arcade.key.ENTER and self.shoot2_delay:
+			self.shoot2()
+			self.shoot2_delay = False
 			
 			
